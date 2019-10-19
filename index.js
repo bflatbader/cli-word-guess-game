@@ -15,11 +15,65 @@ function gameStart () {
     randWord = wordBank[rand];
 
     var word = new Word (randWord);
-    mainGame(word);
+    mainGame(word, randWord);
 }
 
-function mainGame (word) {
-    console.log(word);
+function mainGame (word, randWord) {
+
+    // Used to store an array of the letters in the word
+    var letterArray = [];
+    // Used to store the boolean values for each letter in the word to determine if it has been guessed or not
+    var guessArray = [];
+    
+    // Displays the word to guess as underscores
+    console.log("\n" + chalk.blue("WHO'S THAT POKÉMON?\n") + word.createString() + "\n");
+
+    inquirer
+    .prompt([
+        {
+            name: "guessedLetter",
+            message: "Guess a letter:",
+            validate: function validateGuess(name) {
+                if (!name.match(alphabet)) {
+                    return chalk.red("Please only enter a letter.");
+                } else {
+                    return true;
+                }
+            }
+        }
+    ]).then(function (answer) {
+        // Converts the guessed letter to lower case and then passes it to the word's checkGuessWord method
+        lowerGuess = answer.guessedLetter.toLowerCase();
+        word.checkGuessWord(lowerGuess);
+
+        word.letters.forEach(function (element) {
+            letterArray.push(element.letter);
+            guessArray.push(element.guessed);
+        });
+
+        if (letterArray.indexOf(lowerGuess) > -1) {
+            console.log(chalk.green("\nCORRECT!!!"));
+        } else {
+            console.log(chalk.red("\nIncorrect!"));
+            numGuesses--;
+            console.log(chalk.yellow(`You have ${numGuesses} guesses remaining.`));
+        }
+
+        // Determine if game will continue or not
+        if (guessArray.indexOf(false) > -1 && numGuesses > 0) {
+            mainGame(word, randWord);
+        } else {
+
+            // Lose condition
+            if (numGuesses === 0) {
+                console.log("\n" + chalk.red("You lose.\n"));
+                console.log("The Pokémon was " + chalk.blue(`${randWord}`) + "\n");
+            } else {
+                console.log("\n" + chalk.green("You got it right!\n"))
+                console.log("The Pokémon was " + chalk.blue(`${randWord}`) + ".\n");
+            }
+        }
+    });
 }
 
 // VARIABLES
@@ -44,6 +98,6 @@ var wordBank = ["bulbasaur","ivysaur","venusaur","charmander","charmeleon",
 "jolteon","flareon","porygon","omanyte","omastar","kabuto","kabutops","aerodactyl",
 "snorlax","articuno","zapdos","moltres","dratini","dragonair","dragonite","mewtwo","mew"];
 var alphabet = /[a-zA-z]/;
-
+var numGuesses = 8;
 
 gameStart();
