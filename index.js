@@ -15,6 +15,7 @@ function gameStart () {
     randWord = wordBank[rand];
 
     var word = new Word (randWord);
+    console.log("\n===================================");
     mainGame(word, randWord);
 }
 
@@ -26,7 +27,7 @@ function mainGame (word, randWord) {
     var guessArray = [];
     
     // Displays the word to guess as underscores
-    console.log("\n" + chalk.blue("WHO'S THAT POKÉMON?\n") + word.createString() + "\n");
+    console.log("\n" + chalk.hex('#70D6FF')("WHO'S THAT POKÉMON?\n") + word.createString() + "\n");
 
     inquirer
     .prompt([
@@ -52,11 +53,11 @@ function mainGame (word, randWord) {
         });
 
         if (letterArray.indexOf(lowerGuess) > -1) {
-            console.log(chalk.green("\nCORRECT!!!"));
+            console.log(chalk.hex('#AEFF70')("\nCORRECT!!!"));
         } else {
-            console.log(chalk.red("\nIncorrect!"));
+            console.log(chalk.hex('#FF7070')("\nIncorrect!"));
             numGuesses--;
-            console.log(chalk.yellow(`You have ${numGuesses} guesses remaining.`));
+            console.log(chalk.hex('#FF9770')(`You have ${numGuesses} guesses remaining.`));
         }
 
         // Determine if game will continue or not
@@ -64,14 +65,33 @@ function mainGame (word, randWord) {
             mainGame(word, randWord);
         } else {
 
-            // Lose condition
+            // If the number of guesses left is 0 then the user lost, otherwise they won
             if (numGuesses === 0) {
-                console.log("\n" + chalk.red("You lose.\n"));
-                console.log("The Pokémon was " + chalk.blue(`${randWord}`) + "\n");
+                console.log("\n" + chalk.hex('#D85F5F')("You lose.\n"));
+                console.log("The Pokémon was " + chalk.blue(`${randWord}`) + ".\n");
             } else {
-                console.log("\n" + chalk.green("You got it right!\n"))
+                console.log("\n" + chalk.hex('#7FD140')("You got it right!\n"))
                 console.log("The Pokémon was " + chalk.blue(`${randWord}`) + ".\n");
             }
+        
+            
+            inquirer
+            .prompt([
+                {
+                    name: 'action',
+                    type: 'list',
+                    message: 'What would you like to do?',
+                    choices: ['Play again','Exit']
+                }
+            ]).then(function (answer) {
+                if (answer.action === 'Play again') {
+                    numGuesses = 8;
+                    gameStart();
+                } else {
+                    process.exit();
+                }
+            });
+
         }
     });
 }
