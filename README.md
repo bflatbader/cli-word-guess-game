@@ -3,7 +3,7 @@
 
 <p align="center">
     <img src="images/logo.gif" alt="Logo"><br>
-    <a href="#" target="blank">View Demo</a><br>
+    <a href="#" target="blank">View Demo</a><br><br>
 </p>
 
 ## Overview
@@ -36,4 +36,8 @@ node index.js
 ```
 Then, the user should press a letter on their keyboard and hit Enter. Continue guessing until the pokémon is guessed correctly, or until the number of guesses is depleted.
 
-Once the round is over, the user will be prompted if they'd like to **Play again**, or to **Exit**. 
+![win Example](/images/screenCorrect.png)
+
+![lose Example](/images/screenIncorrect.png)
+
+Once the round is over, the user will be prompted if they'd like to **Play again**, or to **Exit**. Use the arrow keys and press Enter to select your choice.
