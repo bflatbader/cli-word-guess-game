@@ -1,0 +1,25 @@
+{
+  "name": "cli-word-guess-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "inquirer": "^7.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bflatbader/cli-word-guess-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bflatbader/cli-word-guess-game/issues"
+  },
+  "homepage": "https://github.com/bflatbader/cli-word-guess-game#readme"
+}
