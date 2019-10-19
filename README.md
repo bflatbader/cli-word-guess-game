@@ -38,6 +38,6 @@ Then, the user should press a letter on their keyboard and hit Enter. Continue g
 
 ![win Example](/images/screenCorrect.png)
 
-![lose Example](/images/screenIncorrect.png)
+![lose Example](/images/screenInorrect.png)
 
 Once the round is over, the user will be prompted if they'd like to **Play again**, or to **Exit**. Use the arrow keys and press Enter to select your choice.
