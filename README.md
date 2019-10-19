@@ -2,7 +2,7 @@
 [![Generic badge](https://img.shields.io/badge/LinkedIn-Blue.svg)](https://www.linkedin.com/in/bishop-bader/)
 
 <p align="center">
-    <img src="logo.gif" alt="Logo"><br>
+    <img src="images/logo.gif" alt="Logo"><br>
     <a href="#" target="blank">View Demo</a><br>
 </p>
 
