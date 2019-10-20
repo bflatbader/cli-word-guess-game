@@ -7,7 +7,7 @@
 </p>
 
 ## Overview
-A CLI that generates a randomly generates a pokémon to guess from an array of the original 151 pokémon.
+A CLI that randomly generates a pokémon to guess from an array of the original 151 pokémon.
 
 ## Languages/Technologies Used
 - [Node](https://nodejs.org/en/docs/)

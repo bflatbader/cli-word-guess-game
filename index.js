@@ -15,7 +15,7 @@ function gameStart () {
     randWord = wordBank[rand];
 
     var word = new Word (randWord);
-    console.log("\n===================================");
+    console.log(chalk.hex('#EEEBD0')("\n==================================="));
     mainGame(word, randWord);
 }
 
@@ -29,14 +29,20 @@ function mainGame (word, randWord) {
     // Displays the word to guess as underscores
     console.log("\n" + chalk.hex('#70D6FF')("WHO'S THAT POKÉMON?\n") + word.createString() + "\n");
 
+    // Display the already guessed letters
+    if (userGuesses.length > 0) {
+        console.log(chalk.hex('EEEBD0')("ALREADY GUESSED: " + userGuesses.join(" ") + "\n"));
+    }
+
+    // Prompt the user to input a guess
     inquirer
     .prompt([
         {
             name: "guessedLetter",
             message: "Guess a letter:",
             validate: function validateGuess(name) {
-                if (!name.match(alphabet)) {
-                    return chalk.red("Please only enter a letter.");
+                if (!name.match(alphabet) || userGuesses.indexOf(name) > -1) {
+                    return chalk.hex('#D85F5F')("Please enter a valid response. You either guessed the letter already or entered an invalid character.");
                 } else {
                     return true;
                 }
@@ -45,6 +51,7 @@ function mainGame (word, randWord) {
     ]).then(function (answer) {
         // Converts the guessed letter to lower case and then passes it to the word's checkGuessWord method
         lowerGuess = answer.guessedLetter.toLowerCase();
+        userGuesses.push(lowerGuess);
         word.checkGuessWord(lowerGuess);
 
         word.letters.forEach(function (element) {
@@ -86,6 +93,7 @@ function mainGame (word, randWord) {
             ]).then(function (answer) {
                 if (answer.action === 'Play again') {
                     numGuesses = 8;
+                    userGuesses = [];
                     gameStart();
                 } else {
                     process.exit();
@@ -118,6 +126,7 @@ var wordBank = ["bulbasaur","ivysaur","venusaur","charmander","charmeleon",
 "jolteon","flareon","porygon","omanyte","omastar","kabuto","kabutops","aerodactyl",
 "snorlax","articuno","zapdos","moltres","dratini","dragonair","dragonite","mewtwo","mew"];
 var alphabet = /[a-zA-z]/;
+var userGuesses = [];
 var numGuesses = 8;
 
 gameStart();
